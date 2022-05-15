@@ -27,7 +27,9 @@ async function run() {
       new PublicKey(programId)
     );
 
-    // get all issues with a bounty enabled
+    console.log(repository);
+    
+    /* // get all issues with a bounty enabled
     const { data: issuesForRepo } = await octokit.rest.issues.listForRepo({
       repo: repoName,
       owner,
@@ -118,14 +120,14 @@ async function run() {
 
         console.log(body);
   
-        /* await octokit.issues.updateComment({
+        await octokit.issues.updateComment({
           body,
           comment_id: bountyEnabledComment.id,
           owner,
           repo: repoName,
-        }); */
+        });
       }
-    });
+    }); */
 
     core.setOutput("result", true);
   } catch (error) {
