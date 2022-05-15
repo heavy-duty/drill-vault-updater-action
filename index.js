@@ -1,6 +1,7 @@
 const core = require("@actions/core");
 const github = require("@actions/github");
 const { getAccount, getMint } = require("@solana/spl-token");
+const { TokenListProvider } = require("@solana/spl-token-registry");
 const { Connection, PublicKey } = require("@solana/web3.js");
 const BN = require("bn.js");
 
