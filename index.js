@@ -16,14 +16,10 @@ async function run() {
     const connection = new Connection(rpcEndpoint);
     const octokit = github.getOctokit(token);
 
-    console.log({ githubRepository })
-
     const { data: repository } = await octokit.rest.repos.get({
       repo: repoName,
       owner,
     });
-
-    console.log({ repository })
 
     const [boardPublicKey] = await PublicKey.findProgramAddress(
       [
@@ -40,6 +36,8 @@ async function run() {
       labels: "drill:bounty:enabled",
       state: "open",
     });
+
+    console.log({ issuesForRepo })
   
     issuesForRepo.forEach(async (issue) => {
       // find bounty enabled comment
@@ -48,6 +46,8 @@ async function run() {
         repo: repoName,
         issue_number: issue.number,
       });
+
+      console.log({ issueComments })
   
       const bountyEnabledComment = issueComments.find((comment) => {
         console.log(comment);
@@ -56,7 +56,7 @@ async function run() {
           comment.body?.toLowerCase().includes("bounty enabled")
         );
       });
-  
+
       if (bountyEnabledComment !== undefined) {
         // find bounty vault account
         const [bountyPublicKey] = await PublicKey.findProgramAddress(
