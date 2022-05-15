@@ -11,14 +11,21 @@ async function run() {
     const cluster = core.getInput("cluster");
     const token = core.getInput("token");
 
+    console.log({ token })
+
     const [owner, repoName] = githubRepository.split("/");
     const connection = new Connection(rpcEndpoint);
     const octokit = github.getOctokit(token);
+
+    console.log({ githubRepository })
 
     const { data: repository } = await octokit.rest.repos.get({
       repo: repoName,
       owner,
     });
+
+    console.log({ repository })
+
     const [boardPublicKey] = await PublicKey.findProgramAddress(
       [
         Buffer.from("board", "utf8"),
@@ -27,8 +34,6 @@ async function run() {
       new PublicKey(programId)
     );
 
-    console.log(repository);
-    
     /* // get all issues with a bounty enabled
     const { data: issuesForRepo } = await octokit.rest.issues.listForRepo({
       repo: repoName,
