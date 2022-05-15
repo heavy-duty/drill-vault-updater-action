@@ -4,9 +4,6 @@ inputs:
   program-id:
     description: "Drill Program ID"
     required: true
-  drill-bot-id:
-    description: "Id of the Drill Bot"
-    required: true
   github-repository:
     description: "Github Repository"
     required: true

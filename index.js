@@ -7,7 +7,6 @@ const BN = require("bn.js");
 async function run() {
   try {
     const programId = core.getInput("program-id");
-    const botId = core.getInput("bot-id");
     const githubRepository = core.getInput("github-repository");
     const rpcEndpoint = core.getInput("rpc-endpoint");
     const cluster = core.getInput("cluster");
@@ -51,8 +50,9 @@ async function run() {
       });
   
       const bountyEnabledComment = issueComments.find((comment) => {
+        console.log(comment);
         return (
-          comment.user?.id.toString() === botId &&
+          // comment.user?.id.toString() === botId &&
           comment.body?.toLowerCase().includes("bounty enabled")
         );
       });
