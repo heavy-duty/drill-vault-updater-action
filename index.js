@@ -37,8 +37,6 @@ async function run() {
       labels: "drill:bounty:enabled",
       state: "open",
     });
-
-    console.log({ issuesForRepo })
   
     issuesForRepo.forEach(async (issue) => {
       // find bounty enabled comment
@@ -48,12 +46,8 @@ async function run() {
         issue_number: issue.number,
       });
 
-      console.log({ issueComments })
-  
       const bountyEnabledComment = issueComments.find((comment) => {
-        console.log(comment);
         return (
-          // comment.user?.id.toString() === botId &&
           comment.body?.toLowerCase().includes("bounty enabled")
         );
       });
