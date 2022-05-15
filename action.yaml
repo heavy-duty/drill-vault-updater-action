@@ -1,0 +1,12 @@
+name: "Drill Vault Updater"
+description: "Update vault amount for every enabled bounty."
+inputs:
+  program-id: # id of input
+    description: "Drill Program ID"
+    required: true
+outputs:
+  time: # id of output
+    description: "Result"
+runs:
+  using: "node16"
+  main: "dist/index.js"
