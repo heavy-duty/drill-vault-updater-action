@@ -15,7 +15,7 @@ async function run() {
     const connection = new Connection(rpcEndpoint);
     const octokit = github.getOctokit(token);
 
-    const { data: repository } = await octokit.repos.get({
+    const { data: repository } = await octokit.rest.repos.get({
       repo: repoName,
       owner,
     });
@@ -28,7 +28,7 @@ async function run() {
     );
 
     // get all issues with a bounty enabled
-    const { data: issuesForRepo } = await octokit.issues.listForRepo({
+    const { data: issuesForRepo } = await octokit.rest.issues.listForRepo({
       repo: repoName,
       owner,
       labels: "drill:bounty:enabled",
@@ -37,7 +37,7 @@ async function run() {
   
     issuesForRepo.forEach(async (issue) => {
       // find bounty enabled comment
-      const { data: issueComments } = await octokit.issues.listComments({
+      const { data: issueComments } = await octokit.rest.issues.listComments({
         owner,
         repo: repoName,
         issue_number: issue.number,
