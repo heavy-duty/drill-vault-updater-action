@@ -1,6 +1,8 @@
 const core = require("@actions/core");
 const github = require("@actions/github");
+const { getAccount, getMint } = require("@solana/spl-token");
 const { Connection, PublicKey } = require("@solana/web3.js");
+const BN = require("bn.js");
 
 async function run() {
   try {
@@ -10,8 +12,6 @@ async function run() {
     const rpcEndpoint = core.getInput("rpc-endpoint");
     const cluster = core.getInput("cluster");
     const token = core.getInput("token");
-
-    console.log({ token })
 
     const [owner, repoName] = githubRepository.split("/");
     const connection = new Connection(rpcEndpoint);
@@ -34,7 +34,7 @@ async function run() {
       new PublicKey(programId)
     );
 
-    /* // get all issues with a bounty enabled
+    // get all issues with a bounty enabled
     const { data: issuesForRepo } = await octokit.rest.issues.listForRepo({
       repo: repoName,
       owner,
@@ -125,14 +125,14 @@ async function run() {
 
         console.log(body);
   
-        await octokit.issues.updateComment({
+        /* await octokit.issues.updateComment({
           body,
           comment_id: bountyEnabledComment.id,
           owner,
           repo: repoName,
-        });
+        }); */
       }
-    }); */
+    });
 
     core.setOutput("result", true);
   } catch (error) {
