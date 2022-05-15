@@ -1,9 +1,26 @@
 name: "Drill Vault Updater"
 description: "Update vault amount for every enabled bounty."
 inputs:
-  program-id: # id of input
+  program-id:
     description: "Drill Program ID"
     required: true
+  drill-bot-id:
+    description: "Id of the Drill Bot"
+    required: true
+  github-repository:
+    description: "Github Repository"
+    required: true
+  rpc-endpoint:
+    description: "URL of the RPC endpoint"
+    required: true
+  cluster:
+    description: "Name of the network"
+    required: true
+    default:
+  rpc-endpoint:
+    description: "URL of the RPC endpoint"
+    required: true
+
 outputs:
   time: # id of output
     description: "Result"
