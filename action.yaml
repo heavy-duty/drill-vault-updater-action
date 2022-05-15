@@ -17,8 +17,8 @@ inputs:
     description: "Name of the network"
     required: true
     default:
-  rpc-endpoint:
-    description: "URL of the RPC endpoint"
+  token:
+    description: "Github Token"
     required: true
 
 outputs:
