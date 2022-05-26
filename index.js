@@ -756,12 +756,13 @@ function getBountyEnabledCommentBody(
   bountyVaultPublicKeyUrl,
   imagePath
 ) {
+  core.notice("INITING MESSAGES");
   const _initMessage = `
   # 💰 Drill Bounty Program 💰
   
   Drill was configured successfully, this issue has an active bounty. [Inspect the transaction](${explorerUrl}) in the Solana Explorer. Below you'll find more details about the Bounty you just created. If you want to get more info about this tool, please read our official doc [here](https://heavyduty.builders/)
   `;
-
+  core.notice("Passed 1");
   const _boardInfo = `
   ## 💾 Board info
   
@@ -772,7 +773,7 @@ function getBountyEnabledCommentBody(
   ⏱️ **Lock Time (ms)**:${board.lockTime}  
   🔒 **Auhtority**:[${board.authority}](${boardAuthorityUrl})
   `;
-
+  core.notice("Passed 2");
   const _bountyInfo = `
   ## 🏦 Bounty info
   
@@ -784,7 +785,7 @@ function getBountyEnabledCommentBody(
   
   > _You can use this information and our CLI to fetch more detailed data, like the Bump and others solana detail you may need in some cases._
   `;
-
+  core.notice("Passed 3");
   const _solanaPay = `
   ## 🤳 Solana pay
   
@@ -794,15 +795,15 @@ function getBountyEnabledCommentBody(
   
   ### 🪙💵 **CURRENT DEPOSIT AMOUNT: ${bounty.vaultAmount}** 💵🪙
   `;
-
+  core.notice("Passed 4");
   const _disclaimer = `
   ## 🚨 Disclaimer
   
   _PLEASE BE SURE YOU KNOW THIS REPO AND ALREADY SPOKE WITH SOME ADMIN. IS IMPORTANT TO KEEP IN MIND that THIS COMMENT (INCLUDING THE ADDRESS AND THE QR IMAGE) CAN BE MODIFIED FOR ANY PERSON WITH THE SUFFICIENT PRIVILEGE IN THIS REPO. DRILL NOR HEAVYDUTY BE RESPONSIBLE FOR ANY SCAM OR BAD USE OF THIS SOFTWARE._
   `;
-
+  core.notice("Passed 5");
   const fullComment = `${_initMessage}\n---\n${_boardInfo}\n&nbsp;\n${_bountyInfo}\n---\n${_solanaPay}---\n${_disclaimer}\n`;
-
+  core.notice("Passed 6");
   return `${fullComment}\n`;
 }
 
