@@ -873,7 +873,7 @@ async function run() {
 
         const imagePath = `.drill/${issue.number}.jpg`;
 
-        let body = getBountyEnabledCommentBody(
+        const body = getBountyEnabledCommentBody(
           boardMessageData,
           bountyMessageData,
           `${repository.owner.login}/${repository.name}`,
