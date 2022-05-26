@@ -732,6 +732,7 @@ async function getBounty(program, boardId, bountyId) {
 }
 
 function getExplorerUrl(type, signature, cluster, rpcEndpoint) {
+  core.notice("GETTING URLS");
   const explorerUrl = new URL(
     `https://explorer.solana.com/${type}/${signature}`
   );
@@ -930,7 +931,7 @@ async function run() {
           boardMessageData,
           bountyMessageData,
           `${repository.owner.login}/${repository.name}`,
-          getExplorerUrl("tx", signature, cluster, connection.rpcEndpoint),
+          getExplorerUrl("tx", "signature", cluster, connection.rpcEndpoint),
           getExplorerUrl(
             "address",
             boardMessageData.publicKey,
