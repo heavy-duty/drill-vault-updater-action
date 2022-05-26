@@ -693,6 +693,44 @@ async function getBoard(program, boardId) {
   };
 }
 
+async function getBounty(program, boardId, bountyId) {
+  const [boardPublicKey] = await PublicKey.findProgramAddress(
+    [
+      Buffer.from("board", "utf8"),
+      new BN(boardId).toArrayLike(Buffer, "le", 4),
+    ],
+    program.programId
+  );
+  const [bountyPublicKey] = await PublicKey.findProgramAddress(
+    [
+      Buffer.from("bounty", "utf8"),
+      boardPublicKey.toBuffer(),
+      new BN(bountyId).toArrayLike(Buffer, "le", 4),
+    ],
+    program.programId
+  );
+  const bountyAccount = await program.account.bounty.fetchNullable(
+    bountyPublicKey
+  );
+
+  if (bountyAccount === null) {
+    return null;
+  }
+
+  return {
+    publicKey: bountyPublicKey,
+    boardId: bountyAccount.boardId,
+    id: bountyAccount.bountyId,
+    bountyBump: bountyAccount.bountyBump,
+    bountyHunter: bountyAccount.bountyHunter,
+    bountyVaultBump: bountyAccount.bountyVaultBump,
+    closedAt: bountyAccount.closedAt
+      ? new Date(bountyAccount.closedAt.toNumber() * 1000)
+      : null,
+    isClosed: bountyAccount.isClosed,
+  };
+}
+
 function getExplorerUrl(type, signature, cluster, rpcEndpoint) {
   const explorerUrl = new URL(
     `https://explorer.solana.com/${type}/${signature}`
