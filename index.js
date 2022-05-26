@@ -857,6 +857,7 @@ async function run() {
       });
 
       if (bountyEnabledComment !== undefined) {
+        core.notice("ENTER TO THE IF");
         // find bounty vault account
         const [bountyPublicKey] = await PublicKey.findProgramAddress(
           [
@@ -878,6 +879,7 @@ async function run() {
         const acceptedMint = await getMint(connection, bountyVaultAccount.mint);
 
         const tokens = await new TokenListProvider().resolve();
+        core.notice("I did all my fetched");
         const tokenList = tokens.filterByClusterSlug(cluster).getList();
         const mintDetails = tokenList.find(
           (token) => token.address === acceptedMint.address.toBase58()
@@ -900,6 +902,8 @@ async function run() {
         if (cluster === "custom") {
           explorerUrl.searchParams.append("customUrl", rpcEndpoint);
         }
+
+        core.notice("Cluster passed");
         const bountyAccount = await getBounty(
           program,
           repository.id,
@@ -920,7 +924,7 @@ async function run() {
         };
 
         const imagePath = `.drill/${issue.number}.jpg`;
-
+        core.notice("Board and Bounty fetched");
         const body = getBountyEnabledCommentBody(
           boardMessageData,
           bountyMessageData,
