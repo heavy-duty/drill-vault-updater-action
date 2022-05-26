@@ -20,6 +20,7 @@
   "dependencies": {
     "@actions/core": "^1.8.2",
     "@actions/github": "^5.0.3",
+    "@heavy-duty/anchor": "^0.24.2-1",
     "@solana/spl-token": "^0.2.0",
     "@solana/spl-token-registry": "^0.2.7",
     "@solana/web3.js": "^1.42.0",
