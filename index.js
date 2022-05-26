@@ -964,7 +964,7 @@ async function run() {
         core.notice("owner: " + owner);
         core.notice("repo2: " + repoName);
 
-        await octokit.issues.updateComment({
+        await octokit.rest.issues.updateComment({
           body: "body",
           comment_id: Number(bountyEnabledComment.id),
           owner,
