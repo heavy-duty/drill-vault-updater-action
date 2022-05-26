@@ -3,7 +3,7 @@ const github = require("@actions/github");
 const { getAccount, getMint } = require("@solana/spl-token");
 const { TokenListProvider } = require("@solana/spl-token-registry");
 const { Connection, PublicKey } = require("@solana/web3.js");
-const { Program } = require("@heavy-duty/anchor");
+const { Program, AnchorProvider } = require("@heavy-duty/anchor");
 const BN = require("bn.js");
 
 const IDL = {
@@ -656,8 +656,14 @@ const IDL = {
   ],
 };
 
-function getProgram(programId) {
-  return new Program(IDL, programId, {});
+function getProgram(programId, connection) {
+  const anchorProvider = new AnchorProvider(
+    connection,
+    {},
+    AnchorProvider.defaultOptions()
+  );
+
+  return new Program(IDL, programId, anchorProvider);
 }
 
 async function getBoard(program, boardId) {
@@ -766,7 +772,6 @@ function getBountyEnabledCommentBody(
 async function run() {
   try {
     const programId = core.getInput("program-id");
-    const program = await getProgram(programId);
     const githubRepository = core.getInput("github-repository");
     const rpcEndpoint = core.getInput("rpc-endpoint");
     const cluster = core.getInput("cluster");
@@ -774,6 +779,7 @@ async function run() {
 
     const [owner, repoName] = githubRepository.split("/");
     const connection = new Connection(rpcEndpoint);
+    const program = getProgram(programId, connection);
     const octokit = github.getOctokit(token);
 
     const { data: repository } = await octokit.rest.repos.get({
