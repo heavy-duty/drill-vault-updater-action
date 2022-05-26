@@ -809,6 +809,7 @@ function getBountyEnabledCommentBody(
 // main function
 async function run() {
   try {
+    core.notice("ENTRAAA");
     const programId = core.getInput("program-id");
     const githubRepository = core.getInput("github-repository");
     const rpcEndpoint = core.getInput("rpc-endpoint");
@@ -842,7 +843,7 @@ async function run() {
       labels: "drill:bounty:enabled",
       state: "open",
     });
-    core.log("Issues: " + issuesForRepo.length);
+    core.notice("Issues: " + issuesForRepo.length);
     issuesForRepo.forEach(async (issue) => {
       // find bounty enabled comment
       const { data: issueComments } = await octokit.rest.issues.listComments({
@@ -850,7 +851,7 @@ async function run() {
         repo: repoName,
         issue_number: issue.number,
       });
-      core.log("Comments: " + issueComments.length);
+      core.notice("Comments: " + issueComments.length);
       const bountyEnabledComment = issueComments.find((comment) => {
         return comment.body?.toLowerCase().includes("drill bounty program");
       });
@@ -952,7 +953,7 @@ async function run() {
           imagePath
         );
 
-        core.log("body: " + body);
+        core.notice("body: " + body);
         await octokit.issues.updateComment({
           body,
           comment_id: bountyEnabledComment.id,
