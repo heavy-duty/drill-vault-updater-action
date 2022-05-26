@@ -964,11 +964,11 @@ async function run() {
         core.notice("owner: " + owner);
         core.notice("repo2: " + repoName);
 
-        await octokit.issues.addLabels(
-          context.issue({
-            labels: ["drill:bounty-updated:true"],
-          })
-        );
+        // await octokit.issues.addLabels(
+        //   context.issue({
+        //     labels: ["drill:bounty-updated:true"],
+        //   })
+        // );
         // await octokit.issues.updateComment({
         //   body,
         //   comment_id: Number(bountyEnabledComment.id),
