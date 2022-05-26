@@ -962,10 +962,9 @@ async function run() {
         core.notice("body: " + body);
         core.notice("comment_id: number -> " + Number(bountyEnabledComment.id));
         core.notice("owner: " + owner);
-        core.notice("repo2: " + repoName);
 
         await octokit.rest.issues.updateComment({
-          body: "body",
+          body,
           comment_id: Number(bountyEnabledComment.id),
           owner,
           repo: repoName,
