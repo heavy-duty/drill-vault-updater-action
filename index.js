@@ -834,7 +834,6 @@ async function run() {
     );
 
     const boardAccount = await getBoard(program, repository.id);
-    const bountyAccount = await getBounty(program, repository.id, issue.number);
 
     // get all issues with a bounty enabled
     const { data: issuesForRepo } = await octokit.rest.issues.listForRepo({
@@ -900,7 +899,11 @@ async function run() {
         if (cluster === "custom") {
           explorerUrl.searchParams.append("customUrl", rpcEndpoint);
         }
-
+        const bountyAccount = await getBounty(
+          program,
+          repository.id,
+          issue.number
+        );
         const boardMessageData = {
           id: bountyAccount.boardId,
           publicKey: boardPublicKey.toBase58(),
