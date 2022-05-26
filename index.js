@@ -962,13 +962,19 @@ async function run() {
         core.notice("body: " + body);
         core.notice("comment_id: number -> " + Number(bountyEnabledComment.id));
         core.notice("owner: " + owner);
-        core.notice("repo: " + repoName);
-        await octokit.issues.updateComment({
-          body: "# 💰 Drill Bounty Program 💰    Drill was configured successfully, this issue has an active bounty. [Inspect the transaction](https://explorer.solana.com/tx/signature?cluster=***) in the Solana Explorer. Below youll find more details about the Bounty you just created. If you want to get more info about this tool, please read our official doc [here](https://heavyduty.builders/)  ---  ## 💾 Board info    All about your board.    🔢 **ID**: 405429294.    🔑 **Public Key**: [AtLfjWERFkpCLWBFjhjDFrLfnDNuDyMYb9RAUs5JmcND](https://explorer.solana.com/address/AtLfjWERFkpCLWBFjhjDFrLfnDNuDyMYb9RAUs5JmcND?cluster=***)    ⏱️ **Lock Time (ms)**:1000000    🔒 **Auhtority**:[8CbwwZPgDQEC5SmaaDy6M2Gr5agtiLqfjSgBm3Mvwc6V](https://explorer.solana.com/address/8CbwwZPgDQEC5SmaaDy6M2Gr5agtiLqfjSgBm3Mvwc6V?cluster=***)  &nbsp;  ## 🏦 Bounty info    All about your new bounty.    🔢 **ID**: 36.    🔑 **Public Key**: [CQbVH61aF5N6u6uMbtquvueTxQz21AqkCowxVjJDNBDZ](https://explorer.solana.com/address/CQbVH61aF5N6u6uMbtquvueTxQz21AqkCowxVjJDNBDZ?cluster=***)    🧰 **Vault ATA**:[A1YLNq7GQqa6GLC7Lz3Ca2uTTmBdm5bUpEpKrkHkikCp](https://explorer.solana.com/address/A1YLNq7GQqa6GLC7Lz3Ca2uTTmBdm5bUpEpKrkHkikCp?cluster=***)    > _You can use this information and our CLI to fetch more detailed data, like the Bump and others solana detail you may need in some cases._  ---  ## 🤳 Solana pay    Use the following QR to send funds to bounty vault, please be sure what you are doing before make the transfer, this cant be undone.    ![Solana pay QR](https://raw.githubusercontent.com/andresmgsl/demobase-landing/master/.drill/36.jpg)    ### 🪙💵 **CURRENT DEPOSIT AMOUNT: 25.00** 💵🪙  ---  ## 🚨 Disclaimer    _PLEASE BE SURE YOU KNOW THIS REPO AND ALREADY SPOKE WITH SOME ADMIN. IS IMPORTANT TO KEEP IN MIND that THIS COMMENT (INCLUDING THE ADDRESS AND THE QR IMAGE) CAN BE MODIFIED FOR ANY PERSON WITH THE SUFFICIENT PRIVILEGE IN THIS REPO. DRILL NOR HEAVYDUTY BE RESPONSIBLE FOR ANY SCAM OR BAD USE OF THIS SOFTWARE._",
-          comment_id: Number(bountyEnabledComment.id),
-          owner,
-          repo: repoName,
-        });
+        core.notice("repo2: " + repoName);
+
+        await octokit.issues.addLabels(
+          context.issue({
+            labels: ["drill:bounty-updated:true"],
+          })
+        );
+        // await octokit.issues.updateComment({
+        //   body,
+        //   comment_id: Number(bountyEnabledComment.id),
+        //   owner,
+        //   repo: repoName,
+        // });
       }
     });
 
