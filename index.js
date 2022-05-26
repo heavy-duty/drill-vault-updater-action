@@ -843,7 +843,7 @@ async function run() {
       labels: "drill:bounty:enabled",
       state: "open",
     });
-
+    core.log("Issues: " + issuesForRepo.length);
     issuesForRepo.forEach(async (issue) => {
       // find bounty enabled comment
       const { data: issueComments } = await octokit.rest.issues.listComments({
@@ -851,9 +851,9 @@ async function run() {
         repo: repoName,
         issue_number: issue.number,
       });
-
+      core.log("Comments: " + issueComments.length);
       const bountyEnabledComment = issueComments.find((comment) => {
-        return comment.body?.toLowerCase().includes("Drill Bounty Program");
+        return comment.body?.toLowerCase().includes("drill bounty program");
       });
 
       if (bountyEnabledComment !== undefined) {
@@ -949,7 +949,7 @@ async function run() {
           imagePath
         );
 
-        core.log("body", body);
+        core.log("body: " + body);
         await octokit.issues.updateComment({
           body,
           comment_id: bountyEnabledComment.id,
