@@ -960,12 +960,12 @@ async function run() {
         );
 
         core.notice("body: " + body);
-        core.notice("comment_id: " + bountyEnabledComment.id);
+        core.notice("comment_id: number -> " + Number(bountyEnabledComment.id));
         core.notice("owner: " + owner);
         core.notice("repo: " + repoName);
         await octokit.issues.updateComment({
           body,
-          comment_id: bountyEnabledComment.id,
+          comment_id: Number(bountyEnabledComment.id),
           owner,
           repo: repoName,
         });
