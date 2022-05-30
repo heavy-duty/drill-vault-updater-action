@@ -750,7 +750,6 @@ function getBountyEnabledCommentBody(
   board,
   bounty,
   githubRepository,
-  explorerUrl,
   boardPublicKeyUrl,
   boardAuthorityUrl,
   bountyPublicKeyUrl,
@@ -774,7 +773,7 @@ function getBountyEnabledCommentBody(
   ⏱️ **Lock Time (ms)**:${board.lockTime}  
   🔒 **Auhtority**:[${board.authority}](${boardAuthorityUrl})
   `;
-  core.notice("Passed 2");
+
   const _bountyInfo = `
   ## 🏦 Bounty info
   
@@ -786,7 +785,7 @@ function getBountyEnabledCommentBody(
   
   > _You can use this information and our CLI to fetch more detailed data, like the Bump and others solana detail you may need in some cases._
   `;
-  core.notice("Passed 3");
+
   const _solanaPay = `
   ## 🤳 Solana pay
   
@@ -802,16 +801,15 @@ function getBountyEnabledCommentBody(
   
   _PLEASE BE SURE YOU KNOW THIS REPO AND ALREADY SPOKE WITH SOME ADMIN. IS IMPORTANT TO KEEP IN MIND that THIS COMMENT (INCLUDING THE ADDRESS AND THE QR IMAGE) CAN BE MODIFIED FOR ANY PERSON WITH THE SUFFICIENT PRIVILEGE IN THIS REPO. DRILL NOR HEAVYDUTY BE RESPONSIBLE FOR ANY SCAM OR BAD USE OF THIS SOFTWARE._
   `;
-  core.notice("Passed 5");
+
   const fullComment = `${_initMessage}\n---\n${_boardInfo}\n&nbsp;\n${_bountyInfo}\n---\n${_solanaPay}---\n${_disclaimer}\n`;
-  core.notice("Passed 6");
+
   return `${fullComment}\n`;
 }
 
 // main function
 async function run() {
   try {
-    core.notice("ENTRAAA");
     const programId = core.getInput("program-id");
     const githubRepository = core.getInput("github-repository");
     const rpcEndpoint = core.getInput("rpc-endpoint");
@@ -905,7 +903,6 @@ async function run() {
           explorerUrl.searchParams.append("customUrl", rpcEndpoint);
         }
 
-        core.notice("Cluster passed");
         const bountyAccount = await getBounty(
           program,
           repository.id,
@@ -926,12 +923,10 @@ async function run() {
         };
 
         const imagePath = `.drill/${issue.number}.jpg`;
-        core.notice("Board and Bounty fetched");
         const body = getBountyEnabledCommentBody(
           boardMessageData,
           bountyMessageData,
           `${repository.owner.login}/${repository.name}`,
-          getExplorerUrl("tx", "signature", cluster, connection.rpcEndpoint),
           getExplorerUrl(
             "address",
             boardMessageData.publicKey,
@@ -958,10 +953,6 @@ async function run() {
           ),
           imagePath
         );
-
-        core.notice("body: " + body);
-        core.notice("comment_id: number -> " + Number(bountyEnabledComment.id));
-        core.notice("owner: " + owner);
 
         await octokit.rest.issues.updateComment({
           body,
