@@ -760,7 +760,7 @@ function getBountyEnabledCommentBody(
   const _initMessage = `
   # 💰 Drill Bounty Program 💰
   
-  Drill was configured successfully, this issue has an active bounty. [Inspect the transaction](${explorerUrl}) in the Solana Explorer. Below you'll find more details about the Bounty you just created. If you want to get more info about this tool, please read our official doc [here](https://heavyduty.builders/)
+  Drill was configured successfully, this issue has an active bounty. Below you'll find more details about the Bounty you just created. If you want to get more info about this tool, please read our official doc [here](https://heavyduty.builders/)
   `;
   core.notice("Passed 1");
   const _boardInfo = `
