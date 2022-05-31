@@ -884,7 +884,10 @@ async function run() {
         const mintDetails = tokenList.find(
           (token) => token.address === acceptedMint.address.toBase58()
         );
-        core.notice("eepale");
+        core.notice("eepale 1");
+        core.notice(bountyVaultAccount.amount);
+        core.notice(acceptedMint.decimals);
+
         const bountyVaultUserAmount = (
           Number(bountyVaultAccount.amount) /
           Math.pow(10, acceptedMint.decimals)
