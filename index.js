@@ -879,12 +879,12 @@ async function run() {
         const acceptedMint = await getMint(connection, bountyVaultAccount.mint);
 
         const tokens = await new TokenListProvider().resolve();
-        core.notice("I did all my fetched");
+        core.notice("I did all my fetched 2");
         const tokenList = tokens.filterByClusterSlug(cluster).getList();
         const mintDetails = tokenList.find(
           (token) => token.address === acceptedMint.address.toBase58()
         );
-
+        ore.notice("eepale");
         const bountyVaultUserAmount = (
           Number(bountyVaultAccount.amount) /
           Math.pow(10, acceptedMint.decimals)
@@ -898,7 +898,7 @@ async function run() {
           repository.id,
           issue.number
         );
-        core.notice("I did bounty fetch");
+        core.notice("I did bounty fetch 22");
         const boardMessageData = {
           id: bountyAccount.boardId,
           publicKey: boardPublicKey.toBase58(),
