@@ -892,8 +892,9 @@ async function run() {
             Number(bountyVaultAccount.amount) /
             Math.pow(10, acceptedMint.decimals)
           ).toLocaleString(undefined, {
-            currencySign: "USD",
+            style: "currency",
             minimumFractionDigits: 2,
+            currency: "EUR",
           });
 
           core.notice(test);
@@ -906,8 +907,9 @@ async function run() {
           Number(bountyVaultAccount.amount) /
           Math.pow(10, acceptedMint.decimals)
         ).toLocaleString(undefined, {
-          currencySign: mintDetails?.symbol,
+          style: "currency",
           minimumFractionDigits: 2,
+          currency: "EUR",
         });
         core.notice("eepale 2");
         const bountyAccount = await getBounty(
