@@ -895,7 +895,16 @@ async function run() {
 
         bountyVaultUserAmount = bountyVaultUserAmount.replace(
           "€",
-          "${" + mintDetails?.symbol + "}"
+          "[$" +
+            mintDetails?.symbol +
+            "](" +
+            getExplorerUrl(
+              "address",
+              mintDetails.address,
+              cluster,
+              connection.rpcEndpoint
+            ) +
+            ") "
         );
 
         const bountyAccount = await getBounty(
