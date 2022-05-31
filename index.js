@@ -884,12 +884,12 @@ async function run() {
         const mintDetails = tokenList.find(
           (token) => token.address === acceptedMint.address.toBase58()
         );
-        core.notice("eepale 111");
+        core.notice("eepale 1111");
         try {
-          core.notice(bountyVaultAccount.amount);
+          core.notice(bountyVaultAccount.amount.toString());
           core.notice(acceptedMint.decimals);
         } catch (e) {
-          core.notice("ERROR");
+          core.notice("ERROR 2");
           core.notice(e);
         }
 
