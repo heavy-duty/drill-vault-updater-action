@@ -884,7 +884,7 @@ async function run() {
           (token) => token.address === acceptedMint.address.toBase58()
         );
 
-        const bountyVaultUserAmount = (
+        let bountyVaultUserAmount = (
           Number(bountyVaultAccount.amount) /
           Math.pow(10, acceptedMint.decimals)
         ).toLocaleString(undefined, {
