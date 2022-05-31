@@ -892,7 +892,7 @@ async function run() {
             Number(bountyVaultAccount.amount) /
             Math.pow(10, acceptedMint.decimals)
           ).toLocaleString(undefined, {
-            currencySign: mintDetails?.symbol,
+            currencySign: "USD",
             minimumFractionDigits: 2,
           });
 
