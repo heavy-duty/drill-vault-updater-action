@@ -893,7 +893,10 @@ async function run() {
           currency: "EUR",
         });
 
-        bountyVaultUserAmount.replace("€", "${" + mintDetails?.symbol + "}");
+        bountyVaultUserAmount = bountyVaultUserAmount.replace(
+          "€",
+          "${" + mintDetails?.symbol + "}"
+        );
 
         const bountyAccount = await getBounty(
           program,
