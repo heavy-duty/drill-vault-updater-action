@@ -892,7 +892,7 @@ async function run() {
           currencySign: mintDetails?.symbol,
           minimumFractionDigits: 2,
         });
-
+        core.notice("eepale 2");
         const bountyAccount = await getBounty(
           program,
           repository.id,
