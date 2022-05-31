@@ -893,21 +893,12 @@ async function run() {
           minimumFractionDigits: 2,
         });
 
-        const explorerUrl = new URL(
-          `https://explorer.solana.com/address/${bountyVaultPublicKey.toBase58()}`
-        );
-
-        explorerUrl.searchParams.append("cluster", cluster);
-
-        if (cluster === "custom") {
-          explorerUrl.searchParams.append("customUrl", rpcEndpoint);
-        }
-
         const bountyAccount = await getBounty(
           program,
           repository.id,
           issue.number
         );
+        core.notice("I did bounty fetch");
         const boardMessageData = {
           id: bountyAccount.boardId,
           publicKey: boardPublicKey.toBase58(),
@@ -921,7 +912,7 @@ async function run() {
           vaultATA: bountyVaultAccount.address.toBase58(),
           vaultAmount: bountyVaultUserAmount,
         };
-
+        core.notice("Im gonna print the message");
         const imagePath = `.drill/${issue.number}.jpg`;
         const body = getBountyEnabledCommentBody(
           boardMessageData,
