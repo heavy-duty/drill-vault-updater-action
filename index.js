@@ -888,6 +888,15 @@ async function run() {
         try {
           core.notice(bountyVaultAccount.amount.toString());
           core.notice(acceptedMint.decimals);
+          const test = (
+            Number(bountyVaultAccount.amount) /
+            Math.pow(10, acceptedMint.decimals)
+          ).toLocaleString(undefined, {
+            currencySign: mintDetails?.symbol,
+            minimumFractionDigits: 2,
+          });
+
+          core.notice(test);
         } catch (e) {
           core.notice("ERROR 2");
           core.notice(e);
