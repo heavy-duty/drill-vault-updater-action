@@ -879,29 +879,10 @@ async function run() {
         const acceptedMint = await getMint(connection, bountyVaultAccount.mint);
 
         const tokens = await new TokenListProvider().resolve();
-        core.notice("I did all my fetched 2");
         const tokenList = tokens.filterByClusterSlug(cluster).getList();
         const mintDetails = tokenList.find(
           (token) => token.address === acceptedMint.address.toBase58()
         );
-        core.notice("eepale 1111");
-        try {
-          core.notice(bountyVaultAccount.amount.toString());
-          core.notice(acceptedMint.decimals);
-          const test = (
-            Number(bountyVaultAccount.amount) /
-            Math.pow(10, acceptedMint.decimals)
-          ).toLocaleString(undefined, {
-            style: "currency",
-            minimumFractionDigits: 2,
-            currency: "EUR",
-          });
-
-          core.notice(test);
-        } catch (e) {
-          core.notice("ERROR 2");
-          core.notice(e);
-        }
 
         const bountyVaultUserAmount = (
           Number(bountyVaultAccount.amount) /
@@ -911,13 +892,14 @@ async function run() {
           minimumFractionDigits: 2,
           currency: "EUR",
         });
-        core.notice("eepale 2");
+
+        bountyVaultUserAmount.replace("€", "${" + mintDetails?.symbol + "}");
+
         const bountyAccount = await getBounty(
           program,
           repository.id,
           issue.number
         );
-        core.notice("I did bounty fetch 22");
         const boardMessageData = {
           id: bountyAccount.boardId,
           publicKey: boardPublicKey.toBase58(),
@@ -931,7 +913,6 @@ async function run() {
           vaultATA: bountyVaultAccount.address.toBase58(),
           vaultAmount: bountyVaultUserAmount,
         };
-        core.notice("Im gonna print the message");
         const imagePath = `.drill/${issue.number}.jpg`;
         const body = getBountyEnabledCommentBody(
           boardMessageData,
