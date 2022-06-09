@@ -879,9 +879,7 @@ async function run() {
         core.notice("Fetching accepted mint");
         const acceptedMint = await getMint(connection, bountyVaultAccount.mint);
         core.notice("Displaying accepted MINT");
-
-        core.notice(acceptedMint);
-        core.notice("This is the way");
+        core.notice("This is the way 22");
 
         let formattedMint;
         if (acceptedMint) {
