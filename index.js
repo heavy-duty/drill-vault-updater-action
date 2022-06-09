@@ -876,8 +876,11 @@ async function run() {
           connection,
           bountyVaultPublicKey
         );
+        core.notice("Fetching accepted mint");
         const acceptedMint = await getMint(connection, bountyVaultAccount.mint);
-
+        core.notice("Displaying accepted MINT");
+        core.notice("This is the way");
+        core.notice(acceptedMint.address.toBase58);
         const tokens = await new TokenListProvider().resolve();
         const tokenList = tokens.filterByClusterSlug(cluster).getList();
         const mintDetails = tokenList.find(
