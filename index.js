@@ -881,14 +881,13 @@ async function run() {
         core.notice("Displaying accepted MINT");
         core.notice("This is the way 22");
 
+        const tokens = await new TokenListProvider().resolve();
+        const tokenList = tokens.filterByClusterSlug(cluster).getList();
+        const mintDetails = tokenList.find(
+          (token) => token.address === acceptedMint.address.toBase58()
+        );
         let formattedMint;
-        if (acceptedMint) {
-          const tokens = await new TokenListProvider().resolve();
-          const tokenList = tokens.filterByClusterSlug(cluster).getList();
-          const mintDetails = tokenList.find(
-            (token) => token.address === acceptedMint.address.toBase58()
-          );
-
+        if (mintDetails) {
           formattedMint =
             "[$" +
             mintDetails?.symbol +
