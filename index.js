@@ -886,8 +886,10 @@ async function run() {
         const mintDetails = tokenList.find(
           (token) => token.address === acceptedMint.address.toBase58()
         );
+        core.notice("Before 1");
         let formattedMint;
         if (mintDetails) {
+          core.notice("Before 2");
           formattedMint =
             "[$" +
             mintDetails?.symbol +
@@ -899,10 +901,12 @@ async function run() {
               connection.rpcEndpoint
             ) +
             ") ";
+          core.notice("Before 22");
         } else {
+          core.notice("Before 3");
           formattedMint = "UNKNOWN ";
         }
-
+        core.notice("Before 4");
         let bountyVaultUserAmount = (
           Number(bountyVaultAccount.amount) /
           Math.pow(10, acceptedMint.decimals)
@@ -911,7 +915,7 @@ async function run() {
           minimumFractionDigits: 2,
           currency: "EUR",
         });
-
+        core.notice("Before 5");
         bountyVaultUserAmount = bountyVaultUserAmount.replace(
           "€",
           formattedMint
