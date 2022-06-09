@@ -879,13 +879,32 @@ async function run() {
         core.notice("Fetching accepted mint");
         const acceptedMint = await getMint(connection, bountyVaultAccount.mint);
         core.notice("Displaying accepted MINT");
+
+        core.notice(acceptedMint);
         core.notice("This is the way");
-        core.notice(acceptedMint.address.toBase58);
-        const tokens = await new TokenListProvider().resolve();
-        const tokenList = tokens.filterByClusterSlug(cluster).getList();
-        const mintDetails = tokenList.find(
-          (token) => token.address === acceptedMint.address.toBase58()
-        );
+
+        let formattedMint;
+        if (acceptedMint) {
+          const tokens = await new TokenListProvider().resolve();
+          const tokenList = tokens.filterByClusterSlug(cluster).getList();
+          const mintDetails = tokenList.find(
+            (token) => token.address === acceptedMint.address.toBase58()
+          );
+
+          formattedMint =
+            "[$" +
+            mintDetails?.symbol +
+            "](" +
+            getExplorerUrl(
+              "address",
+              mintDetails.address,
+              cluster,
+              connection.rpcEndpoint
+            ) +
+            ") ";
+        } else {
+          formattedMint = "UNKNOWN ";
+        }
 
         let bountyVaultUserAmount = (
           Number(bountyVaultAccount.amount) /
@@ -898,16 +917,7 @@ async function run() {
 
         bountyVaultUserAmount = bountyVaultUserAmount.replace(
           "€",
-          "[$" +
-            mintDetails?.symbol +
-            "](" +
-            getExplorerUrl(
-              "address",
-              mintDetails.address,
-              cluster,
-              connection.rpcEndpoint
-            ) +
-            ") "
+          formattedMint
         );
 
         const bountyAccount = await getBounty(
